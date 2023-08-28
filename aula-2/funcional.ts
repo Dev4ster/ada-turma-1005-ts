@@ -24,16 +24,16 @@ const endereco = {
   numero: 10,
 };
 
-type Pessoa = {
+type PessoaTipo = {
   nome: string;
   idade?: number;
 };
 
-const pessoa: Pessoa = {
+const pessoa: PessoaTipo = {
   nome: "Victor",
 };
 
-const helloWorld = function (pessoa: Pessoa) {
+const helloWorld = function (pessoa: PessoaTipo) {
   console.log(pessoa);
 };
 
