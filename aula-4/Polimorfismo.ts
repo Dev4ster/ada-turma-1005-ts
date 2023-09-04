@@ -1,6 +1,6 @@
 abstract class Forma {
   abstract calcularArea(): number;
-  getPI() {
+  getPI(teste?: string) {
     console.log("obtendo PI");
     return Math.PI;
   }
