@@ -34,7 +34,6 @@ class Board {
       [0, 4, 8],
       [2, 4, 6], // diagonais
     ];
-
     return vitoriasPossiveis.some((possibilidade) => {
       const [a, b, c] = possibilidade;
 
@@ -83,6 +82,16 @@ class Game {
   mensagem(msg: string) {
     const mensagemSpan = document.querySelector("span");
     mensagemSpan!.textContent = msg;
+    mensagemSpan?.classList.add("visivel");
+    const jogadorAtualClass = !!this.currentPlayerIndex ? "um" : "zero";
+    const jogadorAtualClassReplace = !!this.currentPlayerIndex ? "zero" : "um";
+    if (!mensagemSpan?.classList.contains("um")) {
+      mensagemSpan?.classList.remove("zero");
+      mensagemSpan?.classList.add("um");
+    } else {
+      mensagemSpan?.classList.remove("um");
+      mensagemSpan?.classList.add("zero");
+    }
   }
 
   resetar() {
@@ -93,7 +102,11 @@ class Game {
     document.querySelector("span")!.textContent = "";
     cells.forEach((cell) => {
       cell.textContent = "";
+      cell.classList.remove("bloqueado");
     });
+    document.querySelector("span")?.classList.remove("visivel");
+    document.querySelector("span")?.classList.remove("um");
+    document.querySelector("span")?.classList.remove("zero");
   }
 }
 
@@ -104,10 +117,11 @@ const resetarButton = document.querySelector("button");
 
 boardDiv?.addEventListener("click", (evento) => {
   const cell = (evento.target as HTMLDivElement) || null;
-  if (cell?.classList.contains("cell")) {
+  if (!cell?.textContent) {
     const index = cell.getAttribute("data-index");
-    jogo.fazerJogada(Number(index));
     cell.textContent = jogo.players[jogo.currentPlayerIndex].simbolo.toString();
+    jogo.fazerJogada(Number(index));
+    cell.classList.toggle("bloqueado");
   }
 });
 
